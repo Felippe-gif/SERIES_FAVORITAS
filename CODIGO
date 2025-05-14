@@ -1,0 +1,56 @@
+series = []
+
+while True:
+    print("\n=== SÉRIES FAVORITAS ===")
+    print("1 - Adicionar série")
+    print("2 - Listar séries")
+    print("3 - Buscar por gênero")
+    print("4 - Série com mais temporadas")
+    print("0 - Sair")
+
+    opcao = input("Opção: ")
+
+    if opcao == "1":
+        nome = input('Nome: ')
+        genero = input('Gênero: ')
+        temporadas = int(input('Número de temporadas: '))
+        # Armazena todos os dados em um único dicionário dentro da lista 'series'
+        series.append({'nome': nome, 'genero': genero, 'temporadas': temporadas})
+        print('Série adicionada com sucesso!')
+
+    elif opcao == "2":
+        if not series:
+            print("Nenhuma série cadastrada.")
+        else:
+            print("\nLista de Séries:")
+            for idx, serie in enumerate(series, 1):
+                print(f"{idx}. {serie['nome']} | Gênero: {serie['genero']} | Temporadas: {serie['temporadas']}")
+
+    elif opcao == "3":
+        busca_genero = input('Digite o gênero para buscar: ').strip().lower()
+        encontradas = []
+        for serie in series:
+            if serie['genero'].lower() == busca_genero:
+                encontradas.append(serie)
+        if encontradas:
+            print(f"\nSéries do gênero '{busca_genero}':")
+            for s in encontradas:
+                print(f"- {s['nome']} ({s['temporadas']} temporadas)")
+        else:
+            print(f"Nenhuma série encontrada com o gênero '{busca_genero}'.")
+
+    elif opcao == "4":
+        if not series:
+            print("Nenhuma série cadastrada.")
+        else:
+            # Encontra a série com o maior número de temporadas
+            serie_mais_temporadas = max(series, key=lambda x: x['temporadas'])
+            print(f"\nSérie com mais temporadas:")
+            print(f"Nome: {serie_mais_temporadas['nome']} | Temporadas: {serie_mais_temporadas['temporadas']}")
+
+    elif opcao == "0":
+        print("Saindo...")
+        break
+
+    else:
+        print("Opção inválida. Tente novamente.")
